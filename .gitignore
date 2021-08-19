@@ -1,0 +1,7 @@
+#ignore workspace
+
+workspace.code-workspace
+
+#ignore DS file
+
+.DS_Store

@@ -8,6 +8,9 @@ const resetBtn = document.createElement('button');
 const input = document.createElement('button');
 const btnContainer = document.querySelector('.buttons');
 
+//New grid size variable
+let userInput;
+
 
 //Default window onload hover color
 window.onload = () => {
@@ -24,7 +27,7 @@ function createDiv(col, row) {
         const createBox = document.createElement('div');
         grid.style.gridTemplateColumns = `repeat(${col}, 1fr)`;
         grid.style.gridTemplateRows = `repeat(${row}, 1fr)`;
-
+        
         grid.appendChild(createBox).classList.add('gridbox');
     }
     
@@ -61,7 +64,7 @@ function rainbowColor () {
 function getInput () {
     input.textContent = 'Grid Size';
     input.addEventListener('click', () => {
-        let userInput = parseInt(prompt('Enter Grid Size up to 64'));
+        userInput = parseInt(prompt('Enter Grid Size up to 64'));
         if(userInput === null || userInput < 1 || userInput > 64) {
             reset();
             createDiv(16,16);
@@ -75,28 +78,41 @@ function getInput () {
             rainbowColor();
         }
     });
-    btnContainer.appendChild(input).classList.add('btn');    
+    btnContainer.appendChild(input).classList.add('btn'); 
+    return userInput;   
 }
 
-//Clear button
+
+//Clearing grid
 function reset() {
     const boxs = grid.querySelectorAll('.gridbox');
-    resetBtn.textContent = 'Clear';
-    resetBtn.addEventListener('click', () => {
-    boxs.forEach(box => box.style.backgroundColor = 'white');
-    console.log('clicked');
-    })
-    btnContainer.appendChild(resetBtn).classList.add('btn');        
-
+    boxs.forEach(box => box.remove());
+    if (userInput <= 64){
+        createDiv(userInput,userInput)
+        blkColor();
+        rainbowColor();
+    } else {
+        createDiv(16,16);
+        blkColor();
+        rainbowColor();
+    }    
 }
 
-//On page load default grid size 
+//Creating clear button
+function createReset() {
+    resetBtn.textContent = 'Clear';
+    btnContainer.appendChild(resetBtn).classList.add('btn');   
+}
+
+// On page load default grid size 
 createDiv(16,16); 
 
 //Load rest of buttons onto screen
 getInput();
-reset();
+createReset();
 blkColor();
 rainbowColor();
 
+//eventlistener for clear button
+resetBtn.addEventListener('click', reset);
 
