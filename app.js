@@ -4,26 +4,31 @@ const grid = document.querySelector('.grid');
 const blkBtn = document.createElement('button');
 const colorBtn = document.createElement('button');
 const resetBtn = document.createElement('button');
+const input = document.createElement('button');
 const btnContainer = document.querySelector('.buttons');
 
-const input = document.createElement('input-value');
+
 
 //create a function to loop through the creation of divs and add it to grid
+
+window.onload = () => {
+    const boxs = grid.querySelectorAll('.gridbox');
+    boxs.forEach(box => box.addEventListener('mouseover', () => {
+    box.style.backgroundColor = 'black';
+}));
+
+}
 
 function createDiv(col, row) {
     for (let i = 0; i < (col*row); i++ ){
         const createBox = document.createElement('div');
-        // want to take the col and row and output out the size
         grid.style.gridTemplateColumns = `repeat(${col}, 1fr)`;
         grid.style.gridTemplateRows = `repeat(${row}, 1fr)`;
-        createBox.classList.add('gridbox');
 
-        grid.appendChild(createBox);
+        grid.appendChild(createBox).classList.add('gridbox');
     }
     
 }
-
-//On page load default grid size 
 
 
 function blkColor () {
@@ -59,10 +64,29 @@ function rainbowColor () {
 
 function getInput () {
     // need this associated with a button for them to enter grid size
+    input.textContent = 'Grid Size';
+    input.addEventListener('click', () => {
+        let userInput = parseInt(prompt('Enter Grid Size up to 64'));
+        if(userInput === null || userInput < 1 || userInput > 64) {
+            reset();
+            createDiv(16,16);
+            blkColor();
+            rainbowColor();
+        } else {
+            reset();
+            createDiv(userInput,userInput);
+            console.log(userInput);
+            blkColor();
+            rainbowColor();
+        }
 
+    });
 
+    btnContainer.appendChild(input).classList.add('btn');    
 
 }
+
+
 
 
 
@@ -70,29 +94,23 @@ function getInput () {
 
 function reset() {
     const boxs = grid.querySelectorAll('.gridbox');
-    resetBtn.textContent = 'Clear Me';
+    resetBtn.textContent = 'Clear';
     resetBtn.addEventListener('click', () => {
-    boxs.forEach(box => box.remove()); 
+    boxs.forEach(box => box.style.backgroundColor = 'white');
+    console.log('clicked');
     })
-   
-    btnContainer.appendChild(resetBtn).classList.add('.btn');        
-    
-   
+    btnContainer.appendChild(resetBtn).classList.add('btn');        
 
 }
 
 
 
-
-
-
-
-//and send user a popup asking for numbers of squares per side for new grid
-//once entered grid should be generated in same total space as before
-// set the limit for user input to max 100. Larger # of squares could casue 
-//crashing
+//On page load default grid size 
 
 createDiv(16,16); 
+getInput();
+reset();
 blkColor();
 rainbowColor();
-reset();
+
+
