@@ -1,6 +1,7 @@
+// Select grid element div
 const grid = document.querySelector('.grid');
 
-//creating html elements 
+//Creating html elements 
 const blkBtn = document.createElement('button');
 const colorBtn = document.createElement('button');
 const resetBtn = document.createElement('button');
@@ -8,9 +9,7 @@ const input = document.createElement('button');
 const btnContainer = document.querySelector('.buttons');
 
 
-
-//create a function to loop through the creation of divs and add it to grid
-
+//Default window onload hover color
 window.onload = () => {
     const boxs = grid.querySelectorAll('.gridbox');
     boxs.forEach(box => box.addEventListener('mouseover', () => {
@@ -19,6 +18,7 @@ window.onload = () => {
 
 }
 
+//Create the grid squares
 function createDiv(col, row) {
     for (let i = 0; i < (col*row); i++ ){
         const createBox = document.createElement('div');
@@ -30,7 +30,7 @@ function createDiv(col, row) {
     
 }
 
-
+//Black color button
 function blkColor () {
     const boxs = grid.querySelectorAll('.gridbox');
     blkBtn.textContent = 'Black Color';
@@ -42,8 +42,7 @@ function blkColor () {
     btnContainer.appendChild(blkBtn).classList.add('btn');
 }
 
-
-
+//Rainbow color button
 function rainbowColor () {
     const boxs = grid.querySelectorAll('.gridbox');
     colorBtn.textContent ='Rainbow Color';
@@ -58,12 +57,8 @@ function rainbowColor () {
     btnContainer.appendChild(colorBtn).classList.add('btn');    
 }
 
-
-
-//going to need input from user on grid size they want
-
+//Get input from user to change grid size
 function getInput () {
-    // need this associated with a button for them to enter grid size
     input.textContent = 'Grid Size';
     input.addEventListener('click', () => {
         let userInput = parseInt(prompt('Enter Grid Size up to 64'));
@@ -79,19 +74,11 @@ function getInput () {
             blkColor();
             rainbowColor();
         }
-
     });
-
     btnContainer.appendChild(input).classList.add('btn');    
-
 }
 
-
-
-
-
-// add a button at top of the screen which will clear the current grid
-
+//Clear button
 function reset() {
     const boxs = grid.querySelectorAll('.gridbox');
     resetBtn.textContent = 'Clear';
@@ -103,11 +90,10 @@ function reset() {
 
 }
 
-
-
 //On page load default grid size 
-
 createDiv(16,16); 
+
+//Load rest of buttons onto screen
 getInput();
 reset();
 blkColor();
