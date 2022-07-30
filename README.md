@@ -4,5 +4,5 @@ This project was created as part of The Odin Project's curriculum using HTML, CS
 
 [Link to Live Demo]
 
-[Link to project]: https://andychen3.github.io/Etch-a-sketch/
+[Link to Live Demo]: https://andychen3.github.io/Etch-a-sketch/
 
